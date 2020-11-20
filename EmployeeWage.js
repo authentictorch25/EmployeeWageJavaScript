@@ -12,7 +12,7 @@ if (empCheck == IS_ABSENT) {
     console.log("Employee is PRESENT");
 }
 /*UC2*/
-switch (empCheck) {
+/*switch (empCheck) {
     case IS_ABSENT:
         empHrs = 0;
         break;
@@ -27,5 +27,23 @@ switch (empCheck) {
 }
 
 let empWage = empHrs * WAGE_PER_HOUR;
+console.log("Emp Wage: " + empWage);*/
+
+/*UC3*/
+function GetWorkingHours(empCheck){
+    switch (empCheck) {
+        case IS_ABSENT:
+            return 0;
+        case IS_PART_TIME:
+            return PART_TIME_HOURS;
+        case IS_FULL_TIME:
+            return FULL_TIME_HOURS;
+        default:
+            return null;
+    }
+}
+let empHrs = GetWorkingHours(empCheck);
+let empWage = empHrs * WAGE_PER_HOUR;
 console.log("Emp Wage: " + empWage);
+
 
