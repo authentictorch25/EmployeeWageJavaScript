@@ -80,6 +80,7 @@ let totalEmpHrs = 0;
 let totalWorkingDays = 0;
 let dailyWageArr = new Array();
 let dailyWageMap = new Map();
+let dailyHoursMap = new Map();
 function CalculateWage(empHrs) {
     return empHrs * WAGE_PER_HOUR;
 }
@@ -92,6 +93,7 @@ while (totalEmpHrs <= MAX_WORKING_HOURS && totalWorkingDays <= MAX_WORKING_DAYS)
         totalEmpHrs += dailyEmpHrs;
         dailyWageArr.push(dailyEmpHrs*WAGE_PER_HOUR);
         dailyWageMap.set(totalWorkingDays, CalculateWage(dailyEmpHrs));
+        dailyHoursMap.set(totalWorkingDays,dailyEmpHrs);
     } else {
         break;
     }
@@ -160,3 +162,33 @@ let totalEmpWage3 = Array.from(dailyWageMap.values()).reduce(sum, 0);
 console.log("UC8 Store daily wage in map");
 console.log(dailyWageMap);
 console.log("Total emp wage: " + totalEmpWage3);
+
+/*UC9.a*/
+let totalEmpHours = Array.from(dailyHoursMap.values()).reduce(sum,0);
+let totalEmpWage4 = dailyWageArr.filter(dailyWage=>dailyWage>0).reduce(sum,0);
+console.log("\nUC 9.a Get total hours and wage using arrow functions");
+console.log("Total emp wage: "+totalEmpWage4+"\nTotal Working Hours: "+totalEmpHours);
+
+/*UC9.b*/
+let mapTypeOfWorkingDay = new Map();
+mapTypeOfWorkingDay.set("full_work",new Array());
+mapTypeOfWorkingDay.set("part_time",new Array());
+mapTypeOfWorkingDay.set("no_work",new Array());
+dailyHoursMap.forEach((value,key,map)=>{
+    if(value==8){
+        let arr = mapTypeOfWorkingDay.get("full_work");
+        arr.push(key);
+        mapTypeOfWorkingDay.set("full_work",arr);
+    }else if(value==4){
+        let arr = mapTypeOfWorkingDay.get("part_time");
+        arr.push(key);
+        mapTypeOfWorkingDay.set("part_time",arr);
+    }else{
+        let arr = mapTypeOfWorkingDay.get("no_work");
+        arr.push(key);
+        mapTypeOfWorkingDay.set("no_work",arr);
+    }
+});
+console.log("UC 9.b Show the full working, part time working and no working days");
+console.log(mapTypeOfWorkingDay);
+
