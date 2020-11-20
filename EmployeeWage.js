@@ -38,13 +38,42 @@ while (totalEmpHrs <= MAX_WORKING_HOURS && totalWorkingDays < MAX_WORKING_DAYS) 
             dayNum: totalWorkingDays,
             dailyHours: dailyEmpHrs,
             dailyWage: CalculateWage(dailyEmpHrs),
-            toString(){
-                return "\nDay: "+this.dayNum+"   Working Hours: "+this.dailyHours+"   Daily wages: "+this.dailyWage;
+            toString() {
+                return "\nDay: " + this.dayNum + "   Working Hours: " + this.dailyHours + "   Daily wages: " + this.dailyWage;
             }
         });
     } else {
         break;
     }
 }
-console.log("UC10 store daily info in array using js objects");
- console.log(empDailyHoursAndWageArr);
+// UC10
+console.log("\nUC10 store daily info in array using js objects");
+console.log(empDailyHoursAndWageArr);
+
+//UC 11.a Calculate total hours and wage using arrow functions
+let totalHours = empDailyHoursAndWageArr
+    .filter(obj => obj.dailyWage > 0)
+    .reduce((totalHours, obj) => totalHours += obj.dailyHours, 0);
+let totalWage = empDailyHoursAndWageArr
+    .filter(obj => obj.dailyHours > 0)
+    .reduce((totalWage, obj) => totalWage += obj.dailyWage, 0);
+console.log("\nUC 11.a Calculate total hours and wage using arrow functions");
+console.log("Total Hours: " + totalHours + "   Total Wage:" + totalWage);
+
+//UC 11.b Show the full working days using foreach
+console.log("UC 11.b Show the full working days");
+empDailyHoursAndWageArr.filter(obj => obj.dailyHours == 8).forEach(obj => process.stdout.write(obj.toString()));
+
+//UC 11.c Show Part working days using Map by reducing to String Array
+let partWorkingDays = empDailyHoursAndWageArr
+    .filter(obj => obj.dailyHours == 4)
+    .map(obj => obj.toString());
+console.log("\nUC 11.b Show part time working days");
+console.log(partWorkingDays);
+
+//UC 11.d Show No working days using Map by reducing to String Array
+let noWorkingDays = empDailyHoursAndWageArr
+    .filter(obj => obj.dailyHours == 0)
+    .map(obj => obj.toString());
+console.log("\nUC 11.b Show no working days");
+console.log(noWorkingDays);
